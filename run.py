@@ -8,17 +8,17 @@ messages = []
 
 def add_messages(username, message):
     """ add messages to the 'messages' list """
+    # create a timestamp based on current time
     now = datetime.now().strftime("%H:%M:%S")
-    messages.append("({}) {}: {}".format(now, username, message))
-
-def get_all_messages():
-    """ get all messages and separate them with a 'br' """
-    return "<br>".join(messages)
+    # create a dictionary to display to screen
+    # passes time, user and message
+    messages_dict = {"timestamp": now, "from": username, "message": message}
+    # adds message to list with all necessary information
+    messages.append(messages_dict)
 
 @app.route('/', methods = ["GET", "POST"])
 def index():
     """ Main page with instructions """
-    
     if request.method == "POST":
         session["username"] = request.form["username"]
     
@@ -32,7 +32,7 @@ def user(username):
     """
     display chat messages
     """
-    return "<h1>Welcome, {0}</h1>{1}".format(username, get_all_messages())
+    return "<h1>Welcome, {0}</h1>{1}".format(username, messages)
     
 @app.route('/<username>/<message>')
 def send_message(username, message):
