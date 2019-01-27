@@ -9,6 +9,12 @@
 <body>
     <h1>Welcome, {{ username }}</h1>
     
+    <form method="POST">
+        <textarea cols="50" rows="5" name="message" id="message"></textarea>
+        <br>
+        <button>Send Message</button>
+    </form>
+    
     {% for message in chat_messages %}
     
     <p>({{ message.timestamp }}) {{ message.from }}: {{ message.message }}</p>
